@@ -1,3 +1,4 @@
-alert("ZZ");
-console.log("FAREED");
+
+alert("alert");
+console.log("Hello world");
 let myVariable = 10;
