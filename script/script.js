@@ -1,19 +1,21 @@
 'use strict';
 //pms
 let mission = +prompt('Сколько вы хотите заработать?', 10000),
-    addExpences = prompt('Перечислите возможные расходы за рассчитываемый период через запятую'),
+    addExpences = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', 'Семья, учеба, квартира'),
     monthInc,
     deposit = confirm('Есть ли у вас депозит в банке?'),
     stctExp1,
-    stctExp2;
+    stctExp2,
+    counter = 0;
 //pms
-const start = function () {
+ do {
     monthInc = +prompt('Ваш месячный доход?', 10000);
     while (isNaN(monthInc) || monthInc === '' || monthInc === null) {
         monthInc = +prompt('Ваш месячный доход?', 10000);
     }
-};
-start();
+    counter++;
+}
+while(counter === 0);
 
 function getAccumulatedMonth() {
     function getExpensesMonth() {
@@ -26,6 +28,9 @@ function getAccumulatedMonth() {
             }
             let sum = 0;
             sum += +prompt('Во сколько это обойдется?');
+            while (isNaN(sum) || sum === '' || sum === null) {
+                sum += +prompt('Во сколько это обойдется?');
+            }
             return sum;
         }
     }
@@ -39,10 +44,18 @@ function getTargetMonth() {
     return Math.ceil(mission / accumulatedMonth);
 }
 let targetMBudget = getTargetMonth();
-console.log('Mission will be reached in ' + targetMBudget + ' month.');
+if (targetMBudget < 0){
+    console.log('Цель не будет достигнута!');
+} else {
+    console.log('Цель будет достигнута через ' + targetMBudget + ' месяцев.');
+}
 console.log(typeof (money), typeof (addExpences), typeof (deposit));
 let dayBudget = accumulatedMonth / 30;
-console.log('Бюджет на день: ' + Math.floor(dayBudget));
+if (dayBudget < 0) {
+    console.log('Что-то пошло не так');
+}else {
+    console.log('Бюджет на день: ' + Math.floor(dayBudget));
+}
 
 const getStatusIncome = function () {
     if (dayBudget >= 800) {
